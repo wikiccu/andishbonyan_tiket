@@ -1,0 +1,87 @@
+@font-face {
+  font-family: "Samim";
+  src: url("../fonts/Samim-FD.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/Samim-FD.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("../fonts/Samim-FD.woff") format("woff"),
+    /* Pretty Modern Browsers */ url("../fonts/Samim-FD.woff2") format("woff2"),
+    /* Pretty Modern Browsers */ url("../fonts/Samim-FD.ttf") format("truetype");
+  /* Safari, Android, iOS */
+}
+body,
+a,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+select,
+option,
+p,
+div,
+input::placeholder,
+textarea,
+label,
+button,
+em,
+strong,
+li {
+  font-family: "Samim" !important;
+}
+* {
+  letter-spacing: 0 !important;
+}
+.nav-item a {
+  font-size: 18px !important;
+}
+.card-body.right {
+  direction: rtl;
+  text-align: right;
+}
+.light1 {
+  direction: rtl;
+  text-align: right;
+}
+.contact li {
+  direction: rtl !important;
+}
+.contact li i {
+  margin-left: 10px;
+}
+#contactForm input::placeholder {
+  direction: rtl !important;
+  text-align: right !important;
+}
+label {
+  direction: rtl !important;
+  text-align: right !important;
+}
+.footer {
+  direction: rtl !important;
+  text-align: right;
+}
+.footer ul {
+  padding: 0 !important;
+  
+}
+.footer ul li a{
+    margin-right: 5px;
+}
+@media (max-width:991px){
+    .card-body{
+        display: flex;
+        text-align: right;
+    }
+    .card-body .text-wrapper{
+        margin-right: 20px !important;
+    }
+}
+@media (max-width:768px){
+   .navbar-nav.ml-auto{
+       display: flex;
+       flex-direction: column-reverse;
+       text-align: right;
+   }
+}
