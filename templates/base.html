@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -41,16 +42,16 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i"
       rel="stylesheet"
     />
-    <link href="css/bootstrap.css" rel="stylesheet" />
-    <link href="css/fontawesome-all.css" rel="stylesheet" />
-    <link href="css/swiper.css" rel="stylesheet" />
-    <link href="css/magnific-popup.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/fontawesome-all.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/swiper.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
     <!-- rtl style -->
-    <link rel="stylesheet" href="css/rtl.css" />
+    <link rel="stylesheet" href="{% static 'css/rtl.css' %}" />
 
     <!-- Favicon  -->
-    <link rel="icon" href="images/favicon.png" />
+    <link rel="icon" href="{% static 'images/favicon.png' %}" />
   </head>
   <body data-spy="scroll" data-target=".fixed-top">
     <!-- Preloader -->

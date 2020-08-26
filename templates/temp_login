@@ -1,0 +1,33 @@
+<!--   <form id="login-form" method="POST" class="form-account">
+                            {% csrf_token %}
+                            <div class="form-account-title">نام کاربری</div>
+                            <div class="form-account-row">
+                                <label for="id_username" class="input-label"><i class="now-ui-icons users_single-02"></i></label>
+                                <input id="id_username" name="username" class="input-field" type="text" placeholder="نام کاربری خود را وارد نمایید">
+                            </div>
+                            <div class="form-account-title">رمز عبور
+                                <a href="{% url 'password_reset' %}" class="btn-link-border form-account-link">رمز عبور خود را فراموش کرده ام  </a>
+                            </div>
+                            <div class="form-account-row">
+                                <label for="id_password" class="input-label"><i class="now-ui-icons ui-1_lock-circle-open"></i></label>
+                                <input id="id_password" name="password" class="input-field" type="password" placeholder="رمز عبور خود را وارد نمایید">
+                            </div>
+                            <div class="form-account-row form-account-submit">
+                                <div class="parent-btn">
+                                    <button  type="submit" value="Login" class="dk-btn dk-btn-info"> ورود به تاپ کالا <i class="fa fa-sign-in"></i></button>
+                                </div>
+                                {% if form.errors %}
+                                    <p class=" label label-danger">
+                                    اطلاعات کاربری شما موجود نمی باشد
+                                        لطفا دوباره امتحان کنید 
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="form-account-agree">
+                                    <label class="checkbox-form checkbox-primary">
+                                        <input name="remember_me" type="checkbox" checked="checked" id="agree">
+                                        <span class="checkbox-check"></span>
+                                    </label>
+                                    <label for="agree">مرا به خاطر داشته باش</label>
+                            </div>
+                        </form> -->
