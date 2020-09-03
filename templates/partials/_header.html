@@ -1,12 +1,71 @@
 {% load static %}
-   <!-- <nav class="navbar direction-ltr fixed-top header-responsive">
-    
-    </nav>-->
+    <!-- responsive-header -->
+    <nav class="navbar direction-ltr fixed-top header-responsive">
+        <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="#pablo">
+                    <img src="{% static 'assets/img/logo.png' %} " height="24px" alt="">
+                </a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navigation" aria-controls="navigation-index" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                <div class="logo-nav-res default text-center">
+                    <a href="#">
+                        <img src="{% static 'assets/img/logo.png' %} " height="36px" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- responsive-header -->
+
     <div class="wrapper default">
 
         <!-- header -->
         <header class="main-header default">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-5">
+                            <div class="logo-area default">
+                                <a href="#">
+                                    <img src="{% static 'assets/img/logo.png' %} " alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5 col-sm-8 col-7">
+                            <div class="search-area default">
 
+                            </div>
+                        </div>
+                        
+                <nav class="main-menu">
+                    <div class="container">
+                        <ul class="list float-right">
+                            
+                            <li class="list-item">
+                                <a class="nav-link" href="{% url 'dashboard' %}">خانه</a>
+                            </li>
+                            {% if user.is_authenticated %}
+                            <li class="list-item">
+                                <a class="nav-link" href="{% url 'new-tiket' %}">تیکت جدید</a>
+                            </li>
+                            <li class="list-item">
+                                <a class="nav-link" href="{% url 'logout' %}">خروج</a>
+                            </li>
+                            {% endif %}
+                            <!-- <li class="list-item amazing-item">
+                                <a class="nav-link" href="#" target="_blank">شگفت‌انگیزها</a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </nav>
         </header>
         <div class="overlay-search-box"></div>
-    </div>
+        <!-- header -->

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
+            <h2>شما از حسابتان خارج شدید</h2>
+            <div class="border-top pt-3">
+                
+                    <a href="{% url 'login' %}">دوباره وارد شوید</a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

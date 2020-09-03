@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
+            <form id="login-form" method="POST" class="form-account" action="{% url 'new-tiket' %}">
+                {% csrf_token %}
+                <div class="form-account-title">عنوان تیکت</div>
+                <div class="form-account-row">
+                    <label for="id_username" class="input-label"><i class="now-ui-icons users_single-02"></i></label>
+                    <input id="id_username" name="title" class="input-field" type="text" placeholder="عنوان تیکت را وارد نمایید">
+                </div>
+                <div class="form-account-title">وضعیت تیکت</div>
+                <select name="vaziat" id="vaziat">
+                    {% for key,value in vaziatha.items %}
+                    <option value="{{ key }}" 
+                    {% if key == values.state %}
+                        selected
+                    {% endif %}
+                    >{{ value }}</option>
+                {% endfor %}
+                </select>
+                <div class="form-account-title">اولویت تیکت</div>
+                <select name="olaviat" id="olaviat">
+                    {% for key,value in olaviatha.items %}
+                        <option value="{{ key }}" 
+                        {% if key == values.state %}
+                            selected
+                        {% endif %}
+                        >{{ value }}</option>
+                    {% endfor %}
+                </select>
+                <textarea id="content" name="content" rows="4" cols="50">
+
+                </textarea>
+                <br>
+                <input  name="submit" type="submit">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
