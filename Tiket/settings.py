@@ -25,7 +25,7 @@ SECRET_KEY = 'b5$rsl67_l@8^plmjlc9!a*u(a&5)h@d3d@$ezit)0s_vn-3q*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pytestuser.pythonanywhere.com']
 
 
 # Application definition
@@ -117,10 +117,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_ROOT= BASE_DIR / 'static' 
+STATIC_ROOT= BASE_DIR / 'static'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'Tiket/static' 
+    BASE_DIR / 'Tiket/static'
 ]
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
