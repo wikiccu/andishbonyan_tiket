@@ -1,14 +1,14 @@
-from .inputs import olaviatha,vaziatha
 from django.contrib import auth, messages
 from django.contrib.auth import decorators
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import first
 
+from users.models import Reply
 
-def home(request):
-  return render(request,"login.html")
+from .inputs import olaviatha, vaziatha
+from .models import Inqueries
 
 
 def login(request):
@@ -30,7 +30,9 @@ def login(request):
 
 @login_required(login_url='login')
 def dashboard(request):
+
     user = User.objects.get(pk=request.user.id)
+    queries = Inqueries.objects.filter(cuser=request.user)
     usergroup = str(user.groups.first())
     mode=0
     if usergroup == "programmers":
@@ -39,6 +41,7 @@ def dashboard(request):
         mode = 2
     elif usergroup == "admin":
         mode = 3
+        queries = Inqueries.objects.all()
     elif usergroup == "customer":
         mode = 4
 
@@ -47,24 +50,38 @@ def dashboard(request):
     context = {
         'user': user,
         'mode': mode,
-        'vaziatha': vaziatha,
-        'olaviatha': olaviatha,
+        'queries':queries,
     }
     return render(request, 'dashboard.html', context)
 
 
 @login_required(login_url='login')
 def newtiket(request):
+    user = User.objects.get(pk=request.user.id)
     context = {
         'vaziatha': vaziatha,
         'olaviatha': olaviatha,
     }
+    print(type(vaziatha))
     if request.method == 'POST':
         title = request.POST['title']
-        vaziat = request.POST['vaziat']
         olaviat = request.POST['olaviat']
-        content = request.POST['content']
-        print(title,vaziat,olaviat,content)
-
+        description = request.POST['description']
+        post=Inqueries(title=title,description=description,olaviat=olaviat,cuser=user)
+        post.save()
     return render(request, 'new_tiket.html',context=context)
 
+@login_required(login_url='login')
+def listing(request, listing_id):
+    #inq=Inqueries.objects.get(pk=listing_id)
+    #user = User.objects.get(pk=request.user.id)
+    # Return 404 error if no object found
+    listing = get_object_or_404(Inqueries, pk=listing_id)
+    context = {
+        'listing': listing,
+    }
+    # if request.method == 'POST':
+    #     username = request.POST['username']
+    #     password = request.POST['password']
+
+    return render(request, 'listing.html',context=context)

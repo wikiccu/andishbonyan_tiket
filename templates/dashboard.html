@@ -3,60 +3,65 @@
 
 {% block content %}
 <div class="container">
-  {% if mode == 1 %}
-    <h1>mode  programmer</h1>
-  {% elif mode == 2 %}
-    <h1>mode  programmers_admin</h1> 
-  {% elif mode == 3 %}
-    <h1>mode  admin</h1> 
-  {% elif mode == 4 %}
-    <h1>mode  customer</h1> 
-  {% else %}
-    <h1>No mode</h1> 
-  {% endif %}
-	<div class="limiter">
-			<div class="wrap-table100">
+  {% if mode == 4 %}
+			<div class="limiter">
 				<div class="table100">
 					<table>
 						<thead>
 							<tr class="table100-head">
-								<th class="column1">تاریخ</th>
-								<th class="column2">شماره سفارش</th>
-								<th class="column3">نام</th>
-								<th class="column4">قیمت</th>
-								<th class="column5">تعداد</th>
-								<th class="column6">جمع کل</th>
+								<th class="column1">شماره</th>
+								<th class="column2">عنوان</th>
+								<th class="column3">وضعیت</th>
+								<th class="column4">اولویت</th>
+								<th class="column5">کاربر</th>
+								<th class="column6">عملیات</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="column1">1398-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">گوشی موبایل iPhone X 64Gb Grey</td>
-								<td class="column4">999 هزار تومان</td>
-								<td class="column5">1</td>
-								<td class="column6">999 هزار تومان</td>
-							</tr>
-							<tr>
-								<td class="column1">1398-09-28 05:57</td>
-								<td class="column2">200397</td>
-								<td class="column3">گوشی موبایل Samsung S8 Black</td>
-								<td class="column4">756 هزار تومان</td>
-								<td class="column5">1</td>
-								<td class="column6">756 هزار تومان</td>
-							</tr>
-							<tr>
-								<td class="column1">1398-09-26 05:57</td>
-								<td class="column2">200396</td>
-								<td class="column3">دسته حرفه ای کامپیوتر</td>
-								<td class="column4">22 هزار تومان</td>
-								<td class="column5">2</td>
-								<td class="column6">44 هزار تومان</td>
-							</tr>
+						{% for query in queries %}
+								<a href="{% url 'new-tiket' %}"><tr>
+										<td class="column1">{{query.id}}</td>
+										<td class="column2">{{query.title}}</td>
+										<td class="column3">{{query.vaziat}}</td>
+										<td class="column4">{{query.olaviat}}</td>
+										<td class="column5">{{query.cuser}}</td>
+										<td class="column6">  عملیات </td>
+									</tr> </a>	
+						{% endfor %}
 						</tbody>
 					</table>
 				</div>
 			</div>
-	</div>
-  </div>
+
+  {% else %}
+		<div class="limiter">
+				<div class="table100">
+					<table>
+						<thead>
+							<tr class="table100-head">
+								<th class="column1">شماره</th>
+								<th class="column2">عنوان</th>
+								<th class="column3">وضعیت</th>
+								<th class="column4">اولویت</th>
+								<th class="column5">کاربر</th>
+								<th class="column6">عملیات</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for query in queries %}
+									<tr>
+									<td class="column1"><a href="{% url 'listing' query.id %}"> {{query.id}}</a></td>
+									<td class="column2">{{query.title}}</td>
+									<td class="column3">{{query.vaziat}}</td>
+									<td class="column4">{{query.olaviat}}</td>
+									<td class="column5">{{query.cuser.first_name}} {{query.cuser.last_name }} </td>
+									<td class="column6"><a href="{% url 'new-tiket' %}">عملیات</a></td> 
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+</div>
+{% endif %}
 {% endblock content %}

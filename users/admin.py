@@ -1,3 +1,5 @@
 from django.contrib import admin
-
-# Register your models here.
+from users.models import Inqueries,Reply
+admin.site.site_header = 'مدیریت تیکت ها '
+admin.site.register(Inqueries)
+admin.site.register(Reply)

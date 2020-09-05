@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+      
+        <h3>{{ listing.title }}</h3> <span class="btn btn-alert"> {{ listing.olaviat }} </span> <span class="btn btn-success"> {{ listing.vaziat }} </span>
+        <p><b> فرستنده : </b> {{ listing.cuser.first_name }} {{ listing.cuser.last_name }}</p>
+        {{ listing.description }} 
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <form id="login-form" method="POST" class="form-account" action="{% url 'listing' listing.id %}">
+          <textarea class="input-field" id="description" name="reply" rows="4" cols="50"></textarea>
+          <input  class="btn btn-dark " name="submit" type="submit" value="ارسال">   
+        </form> 
+        </div>         
+    </div>
+  </div>
+{% endblock content %}
