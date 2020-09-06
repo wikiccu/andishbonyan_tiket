@@ -3,38 +3,7 @@
 
 {% block content %}
 <div class="container">
-  {% if mode == 4 %}
-			<div class="limiter">
-				<div class="table100">
-					<table>
-						<thead>
-							<tr class="table100-head">
-								<th class="column1">شماره</th>
-								<th class="column2">عنوان</th>
-								<th class="column3">وضعیت</th>
-								<th class="column4">اولویت</th>
-								<th class="column5">کاربر</th>
-								<th class="column6">عملیات</th>
-							</tr>
-						</thead>
-						<tbody>
-						{% for query in queries %}
-								<a href="{% url 'new-tiket' %}"><tr>
-										<td class="column1">{{query.id}}</td>
-										<td class="column2">{{query.title}}</td>
-										<td class="column3">{{query.vaziat}}</td>
-										<td class="column4">{{query.olaviat}}</td>
-										<td class="column5">{{query.cuser}}</td>
-										<td class="column6">  عملیات </td>
-									</tr> </a>	
-						{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-  {% else %}
-		<div class="limiter">
+  		<div class="limiter">
 				<div class="table100">
 					<table>
 						<thead>
@@ -63,5 +32,4 @@
 				</div>
 			</div>
 </div>
-{% endif %}
 {% endblock content %}

@@ -30,26 +30,29 @@ def login(request):
 
 @login_required(login_url='login')
 def dashboard(request):
-
+    
     user = User.objects.get(pk=request.user.id)
     queries = Inqueries.objects.filter(cuser=request.user)
     usergroup = str(user.groups.first())
-    mode=0
-    if usergroup == "programmers":
-        mode = 1
-    elif usergroup == "programmers_admin":
-        mode = 2
-    elif usergroup == "admin":
-        mode = 3
+    if usergroup == "admin" or usergroup == "programmers_admin":
         queries = Inqueries.objects.all()
-    elif usergroup == "customer":
-        mode = 4
+    else:
+        queries = Inqueries.objects.filter(cuser=request.user)
+    # mode=0
+    # if usergroup == "programmers":
+    #     mode = 1
+    # elif usergroup == "programmers_admin":
+    #     mode = 2
+    # elif usergroup == "admin":
+    #     mode = 3
+    #     queries = Inqueries.objects.all()
+    # elif usergroup == "customer":
+    #     mode = 4
 
-    print(usergroup)
-    print(mode)
+    
     context = {
         'user': user,
-        'mode': mode,
+        #'mode': mode,
         'queries':queries,
     }
     return render(request, 'dashboard.html', context)
@@ -73,15 +76,20 @@ def newtiket(request):
 
 @login_required(login_url='login')
 def listing(request, listing_id):
-    #inq=Inqueries.objects.get(pk=listing_id)
-    #user = User.objects.get(pk=request.user.id)
+    inq=Inqueries.objects.get(pk=listing_id)
+    user = request.user
     # Return 404 error if no object found
     listing = get_object_or_404(Inqueries, pk=listing_id)
+    replys = Reply.objects.filter()
+    #get_object_or_404(Reply, pk=listing_id)
     context = {
         'listing': listing,
     }
-    # if request.method == 'POST':
-    #     username = request.POST['username']
-    #     password = request.POST['password']
+    if request.method == 'POST':
+        rmsg = request.POST['reply']
+        p=Reply.objects.create(reply_to=inq,wuser=user,reply_message=rmsg)
+    
+
+    
 
     return render(request, 'listing.html',context=context)

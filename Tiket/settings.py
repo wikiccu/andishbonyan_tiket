@@ -25,7 +25,7 @@ SECRET_KEY = 'b5$rsl67_l@8^plmjlc9!a*u(a&5)h@d3d@$ezit)0s_vn-3q*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pytestuser.pythonanywhere.com']
+ALLOWED_HOSTS = ['pytestuser.pythonanywhere.com','localhost', '127.0.0.1']
 
 
 # Application definition

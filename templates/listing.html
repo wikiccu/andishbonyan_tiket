@@ -12,8 +12,10 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
+        
         <form id="login-form" method="POST" class="form-account" action="{% url 'listing' listing.id %}">
-          <textarea class="input-field" id="description" name="reply" rows="4" cols="50"></textarea>
+          {% csrf_token %}
+          <textarea class="input-field" id="reply" name="reply" rows="4" cols="50"></textarea>
           <input  class="btn btn-dark " name="submit" type="submit" value="ارسال">   
         </form> 
         </div>         
