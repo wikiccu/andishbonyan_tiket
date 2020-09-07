@@ -80,16 +80,22 @@ def listing(request, listing_id):
     user = request.user
     # Return 404 error if no object found
     listing = get_object_or_404(Inqueries, pk=listing_id)
-    replys = Reply.objects.filter()
+    replys = Reply.objects.filter(reply_to=listing_id)
     #get_object_or_404(Reply, pk=listing_id)
+
+    if request.method == 'POST':
+        if request.POST.get('change', False):
+            u=inq
+            u.vaziat = request.POST['vaziat']
+            u.save()
+            return redirect('listing',listing_id)
+        elif request.POST.get('submit', False):
+            rmsg = request.POST['reply']
+            p=Reply.objects.create(reply_to=inq,wuser=user,reply_message=rmsg)
+    
     context = {
         'listing': listing,
+        'replys': replys,
+        'vaziatha': vaziatha
     }
-    if request.method == 'POST':
-        rmsg = request.POST['reply']
-        p=Reply.objects.create(reply_to=inq,wuser=user,reply_message=rmsg)
-    
-
-    
-
     return render(request, 'listing.html',context=context)

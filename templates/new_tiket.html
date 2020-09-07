@@ -5,19 +5,25 @@
         <div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
             <form id="login-form" method="POST" class="form-account" action="{% url 'new-tiket' %}">
                 {% csrf_token %}
-                <div >عنوان :</div>
-                <input id="id_username" name="title" class="input-field" type="text" placeholder="عنوان تیکت را وارد نمایید">
-                <br>
-                
-                <div >اولویت :</div>
-                <select class="input-field" name="olaviat" id="olaviat">
-                    {% for key in olaviatha %}
-                        <option value={{ key }} >{{ key }}</option>
-                    {% endfor %}
-                </select>
-                <textarea class="input-field" id="description" name="description" rows="4" cols="50"></textarea>
-                <br>
-                <input  class="btn btn-dark "name="submit" type="submit" value="ارسال">
+                <fieldset class="form-group">
+                 <legend class="border-bottom mb-4">تیکت جدید</legend>
+                </fieldset>
+                <div class="form-group" >عنوان :
+                 <input id="id_username" name="title" class="input-field" type="text" placeholder="عنوان تیکت را وارد نمایید">
+                 </div>
+                <div class="form-group" >اولویت :
+                    <select class="input-field" name="olaviat" id="olaviat">
+                        {% for key,value in olaviatha.items %}
+                            <option value={{ value }} >{{ value }}</option>
+                        {% endfor %}
+                    </select> 
+                </div>
+                <div class="form-group"> متن تیکت : 
+                    <textarea class="input-field" id="description" name="description" rows="4" cols="50"></textarea>
+                </div>
+                <div class="form-group">
+                    <input  class="btn btn-outline-info " name="reply" type="submit" value="ارسال">
+                </div>
             </form>
         </div>
     </div>

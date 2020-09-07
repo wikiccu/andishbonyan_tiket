@@ -1,23 +1,61 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-  <div class="container">
+  <div class="content-section content-center">
     <div class="row">
       <div class="col-sm-12">
-      
-        <h3>{{ listing.title }}</h3> <span class="btn btn-alert"> {{ listing.olaviat }} </span> <span class="btn btn-success"> {{ listing.vaziat }} </span>
+      <fieldset class="form-group">
+      <legend class="border-bottom mb-4">عنوان تیکت : {{ listing.title }}</legend>
+      <span class="btn btn-alert">اولویت : {{ listing.olaviat }} </span> <span class="btn btn-success"> وضعیت : {{ listing.vaziat }} </span>
         <p><b> فرستنده : </b> {{ listing.cuser.first_name }} {{ listing.cuser.last_name }}</p>
         {{ listing.description }} 
       </div>
+      </fieldset>
     </div>
     <div class="row">
       <div class="col-sm-12">
         
+          <form id="login-form" method="POST" class="form-account" action="{% url 'listing' listing.id %}">
+            {% csrf_token %}
+            <div class="form-group"> وضعیت :
+                <select class="input-field" name="vaziat" id="vaziat">
+                    {% for key,value in vaziatha.items %}
+                      <option value="{{ value }}" 
+                      {% if value == listing.vaziat %}
+                          selected
+                      {% endif %}
+                      >{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+              <input  class="btn btn-outline-info " name="change" type="submit" value="تغییر وضعیت">   
+            </div>
+        </form>
+        <div class="border-top pt-3">
+          <ul class="list-group">
+            {% for reply in replys %}
+              <li class="m2"><b>پاسخ دهنده : {{reply.wuser}} </b><li>
+              <li class="list-group-item ">{{reply.reply_message}} </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
         <form id="login-form" method="POST" class="form-account" action="{% url 'listing' listing.id %}">
           {% csrf_token %}
-          <textarea class="input-field" id="reply" name="reply" rows="4" cols="50"></textarea>
-          <input  class="btn btn-dark " name="submit" type="submit" value="ارسال">   
-        </form> 
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">پاسخ به تیکت :</legend>
+            </fieldset>
+            <div class="form-group">
+              <textarea class="input-field" id="reply" name="reply" rows="4" cols="50"></textarea>
+            </div>
+            <div class="border-top pt-3">
+              <input  class="btn btn-dark " name="submit" type="submit" value="ارسال">   
+            </div>
+          </form> 
         </div>         
     </div>
   </div>

@@ -7,7 +7,6 @@ class Inqueries(models.Model):
   olaviat = models.CharField(max_length=20, verbose_name="اولویت")
   vaziat = models.CharField(max_length=20, default="باز", verbose_name="وضعیت")
   cuser = models.ForeignKey(User, on_delete=models.CASCADE, default=None, verbose_name="کاربر")
-  erja = models.IntegerField(max_length=100, default=0, verbose_name="ارجاع به")
 
   def __str__(self):
     return f'{self.title}'
