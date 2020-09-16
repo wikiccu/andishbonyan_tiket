@@ -7,7 +7,7 @@
       <fieldset class="form-group">
       <legend class="border-bottom mb-4">عنوان تیکت : {{ listing.title }}</legend>
       <span class="btn btn-alert">اولویت : {{ listing.olaviat }} </span> <span class="btn btn-success"> وضعیت : {{ listing.vaziat }} </span>
-        <p><b> فرستنده : </b> {{ listing.cuser.first_name }} {{ listing.cuser.last_name }}</p>
+        <p><b> فرستنده : </b> {{ listing.user.first_name }} {{ listing.user.last_name }}</p>
         {{ listing.description }} 
       </div>
       </fieldset>
@@ -35,7 +35,7 @@
         <div class="border-top pt-3">
           <ul class="list-group">
             {% for reply in replys %}
-              <li class="m2"><b>پاسخ دهنده : {{reply.wuser}} </b><li>
+              <li class="m2"><b>پاسخ دهنده : {{reply.user.first_name}} </b><li>
               <li class="list-group-item ">{{reply.reply_message}} </li>
             {% endfor %}
           </ul>

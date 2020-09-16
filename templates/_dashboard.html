@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  		<div class="limiter">
+				<div class="table100">
+					<table>
+						<thead>
+							<tr class="table100-head">
+								<th class="column1">شماره</th>
+								<th class="column2">عنوان</th>
+								<th class="column3">وضعیت</th>
+								<th class="column4">اولویت</th>
+								<th class="column5">کاربر</th>
+								<th class="column6">عملیات</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for query in queries %}
+									<tr>
+									<td class="column1"><a href="{% url 'listing' query.id %}"> {{query.id}}</a></td>
+									<td class="column2">{{query.title}}</td>
+									<td class="column3">{{query.vaziat}}</td>
+									<td class="column4">{{query.olaviat}}</td>
+									<td class="column5">{{query.user.first_name}} {{query.user.last_name }} </td>
+									<td class="column6"><a href="{% url 'new-tiket' %}">عملیات</a></td> 
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+</div>
+{% endblock content %}

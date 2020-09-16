@@ -51,15 +51,10 @@
                             
                             <li class="list-item">
                                 <a class="nav-link" href="{% url 'dashboard' %}">خانه</a>
-                            </li>
-                            {% if user.is_authenticated %}
-                            <li class="list-item">
-                                <a class="nav-link" href="{% url 'new-tiket' %}">تیکت جدید</a>
-                            </li>
+                            </li> 
                             <li class="list-item">
                                 <a class="nav-link" href="{% url 'logout' %}">خروج</a>
                             </li>
-                            {% endif %}
                             <!-- <li class="list-item amazing-item">
                                 <a class="nav-link" href="#" target="_blank">شگفت‌انگیزها</a>
                             </li> -->
