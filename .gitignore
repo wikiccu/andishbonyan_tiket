@@ -7,4 +7,5 @@ local_settings.py
 media
 venv
 env
+db.sqlite3
 .vscode

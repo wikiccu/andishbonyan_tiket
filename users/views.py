@@ -30,10 +30,16 @@ def dashboard(request):
     user = User.objects.get(pk=request.user.id)
     # replys = ReplyTiket.objects.filter(tiket=request.GET['id'])
     usergroup = str(user.groups.first())
+    show_tasks=True
     if usergroup == "admin" or usergroup == "programmers_admin":
         tikets = Tiket.objects.all()
+        show_tasks=True
+    elif usergroup == "programmer":
+        tikets = Tiket.objects.all()
+        show_tasks=True
     else:
         tikets = Tiket.objects.filter(user=request.user)
+        show_tasks=False
     # mode=0
     # if usergroup == "programmers":
     #     mode = 1
@@ -45,13 +51,14 @@ def dashboard(request):
     # elif usergroup == "customer":
     #     mode = 4
 
-    
+    print(show_tasks)
     context = {
         'user': user,
         #'mode': mode,
         'tikets':tikets,
         'vaziatha': vaziatha,
         'olaviatha': olaviatha,
+        'show_tasks': show_tasks
     }
     return render(request, 'dashboard.html', context)
 
@@ -100,3 +107,22 @@ def listing(request, listing_id):
         'vaziatha': vaziatha
     }
     return render(request, 'listing.html',context=context)
+
+@login_required(login_url='login')
+def tasks(request):
+    user = User.objects.get(pk=request.user.id)
+    usergroup = str(user.groups.first())
+    if usergroup == "customer":
+        return redirect('dashboard')
+
+    if Task.objects.exists():
+        tasks = Task.objects.all()
+    else:
+        tasks=None
+
+    context = {
+        'tasks':tasks,
+        #'vaziatha': vaziatha,
+        #'olaviatha': olaviatha,
+    }
+    return render(request, 'tasks.html', context=context)

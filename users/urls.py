@@ -6,4 +6,5 @@ urlpatterns = [
     path('<int:listing_id>', views.listing, name='listing'),
     path('login/', views.login , name='login'),
     path('tiket/', views.newtiket , name='new-tiket'),
+    path('tasks/', views.tasks , name='tasks'),
 ]

@@ -46,7 +46,7 @@ class Task(models.Model):
       ordering = ['user']
 
   def __str__(self):
-    return f'{self.reply_to}'
+    return f'{self.tiket}'
 
 
 class ReplyTask(models.Model):

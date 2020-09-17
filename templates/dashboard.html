@@ -13,12 +13,10 @@
 					<hr>
 					
 					<ul>
-						<li class="active"><a href="#">تیکت ها<span class="pull-right"> </span></a></li>
-						<li><a href="#">وظایف<span class="pull-right"> </span></a></li>
+						<li class="active"><a href="{% url 'dashboard' %}">تیکت ها<span class="pull-right"> </span></a></li>
+						{% if show_tasks %}<li><a href="{% url 'tasks' %}">وظایف<span class="pull-right"> </span></a></li>		{% endif %}
 					</ul>
-					
 					<hr>
-					
 					<p><strong> </strong></p>
 					<ul class="support-label">
 						<li><a href="#"><span class="bg-blue">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
@@ -39,9 +37,7 @@
 			<div class="grid support-content">
 				 <div class="grid-body">
 					 <h2>تیکت ها</h2>
-					 
 					 <hr>
-					 
 					 <div class="btn-group">
 						<button type="button" class="btn btn-default active">باز</button>
 						<button type="button" class="btn btn-default">بسته</button>
@@ -105,7 +101,7 @@
 							{% for tiket in tikets %}
 								<li class="list-group-item"> 
 									<div class="media">
-										<i class="fa fa-cog pull-left"></i>
+										<i class="fa fa-angle-double-left"></i>
 										<div class="media-body">
 											<strong><a href="{% url 'listing' tiket.id %}"> {{tiket.title}} </a></strong> <span class="label label-danger">{{tiket.olaviat}}</span>
 											<p class="info">ایجاد شده توسط :  {{tiket.user.first_name}}</p>
