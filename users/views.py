@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import first
 from users.models import Tiket,ReplyTask,ReplyTiket,Task
 from .inputs import olaviatha, vaziatha
+from .forms import TasksForm
 
 
 def login(request):
@@ -28,7 +29,6 @@ def login(request):
 @login_required(login_url='login')
 def dashboard(request):
     user = User.objects.get(pk=request.user.id)
-    # replys = ReplyTiket.objects.filter(tiket=request.GET['id'])
     usergroup = str(user.groups.first())
     show_tasks=True
     if usergroup == "admin" or usergroup == "programmers_admin":
@@ -50,8 +50,6 @@ def dashboard(request):
     #     queries = Tiket.objects.all()
     # elif usergroup == "customer":
     #     mode = 4
-
-    print(show_tasks)
     context = {
         'user': user,
         #'mode': mode,
@@ -60,23 +58,17 @@ def dashboard(request):
         'olaviatha': olaviatha,
         'show_tasks': show_tasks
     }
-    return render(request, 'dashboard.html', context)
-
-
-@login_required(login_url='login')
-def newtiket(request):
-    user = User.objects.get(pk=request.user.id)
-    context = {
-        'vaziatha': vaziatha,
-        'olaviatha': olaviatha,
-    }
     if request.method == 'POST':
         title = request.POST['title']
         olaviat = request.POST['olaviat']
         description = request.POST['description']
         post=Tiket(title=title,description=description,olaviat=olaviat,user=user)
         post.save()
+
     return render(request, 'dashboard.html',context=context)
+
+
+    
 
 @login_required(login_url='login')
 def listing(request, listing_id):
@@ -87,7 +79,7 @@ def listing(request, listing_id):
     if ReplyTiket.objects.exists():
         replys = ReplyTiket.objects.filter(tiket=this_tiket)
     else:
-        replys=None
+        replys=""
     
     #get_object_or_404(Reply, pk=listing_id)
 
@@ -122,6 +114,7 @@ def tasks(request):
 
     context = {
         'tasks':tasks,
+        'form':TasksForm,
         #'vaziatha': vaziatha,
         #'olaviatha': olaviatha,
     }

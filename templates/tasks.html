@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
 <section class="content">
@@ -63,21 +63,17 @@
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 										<h4 class="modal-title"><i class="fa fa-pencil"></i> ایجاد وظیفه جدید</h4>
 									</div>
-									<form action="{% url 'new-tiket' %}" method="post" >
+									<form action="#" method="post" >
 										{% csrf_token %}
 										<div class="modal-body">
-											<div class="form-group">
-												<input name="title" type="text" class="form-control" placeholder="موضوع">
-											</div>
-											<div class="form-group" >اولویت :
-													<select class="input-field" name="olaviat" id="olaviat">
-													{% for key,value in olaviatha.items %}
-														<option value={{ value }} >{{ value }}</option>
-													{% endfor %}
-													</select> 
+											<div class="form-group" >
+													{{form.tiket | as_crispy_field}}
 											</div>
 											<div class="form-group">
-												<textarea name="description" class="form-control" placeholder="شرح کامل تیکت را عنوان کنید " style="height: 120px;"></textarea>
+												{{form.user | as_crispy_field }}
+											</div>
+											<div class="form-group">
+												{{form.task_message | as_crispy_field }}
 											</div>
 											<div class="form-group">
 												<input type="file" name="attachment">
