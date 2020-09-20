@@ -14,7 +14,7 @@ class Tiket(models.Model):
   class Meta:
       verbose_name = 'تیکت'
       verbose_name_plural = 'تیکت ها'
-      ordering = ['-vaziat']
+      ordering = ['-id']
 
 class ReplyTiket(models.Model):
   tiket = models.ForeignKey(
@@ -28,11 +28,11 @@ class ReplyTiket(models.Model):
       ordering = ['user']
 
   def __str__(self):
-    return f'{self.reply_to}'
+    return f'{self.tiket}'
 
 
   def __str__(self):
-    return f'{self.reply_to}'
+    return f'{self.tiket}'
 
 class Task(models.Model):
   tiket = models.ForeignKey(Tiket, on_delete=models.DO_NOTHING, verbose_name="مربوط به", default=None)

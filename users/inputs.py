@@ -1,7 +1,7 @@
 olaviatha={
   'low':'کم',
   'mid':'متوسط',
-  'high':'خیلی زیاد',
+  'high':'زیاد',
   'critical':'بحرانی',
 }
 vaziatha={

@@ -32,7 +32,13 @@ def dashboard(request):
     usergroup = str(user.groups.first())
     show_tasks=True
     if usergroup == "admin" or usergroup == "programmers_admin":
-        tikets = Tiket.objects.all()
+        if request.method == 'GET':
+            if "close" in request.GET or "close/" in request.GET:
+                tikets = Tiket.objects.filter(vaziat="بسته")
+            elif "prog" in request.GET or "prog/" in request.GET:
+                tikets = Tiket.objects.filter(vaziat="در حال بررسی")
+            else:
+                tikets = Tiket.objects.filter(vaziat="باز")
         show_tasks=True
     elif usergroup == "programmer":
         tikets = Tiket.objects.all()
@@ -40,6 +46,7 @@ def dashboard(request):
     else:
         tikets = Tiket.objects.filter(user=request.user)
         show_tasks=False
+  
     # mode=0
     # if usergroup == "programmers":
     #     mode = 1
@@ -50,6 +57,15 @@ def dashboard(request):
     #     queries = Tiket.objects.all()
     # elif usergroup == "customer":
     #     mode = 4
+
+    
+    if request.method == 'POST':
+        title = request.POST['title']
+        olaviat = request.POST['olaviat']
+        description = request.POST['description']
+        post=Tiket(title=title,description=description,olaviat=olaviat,user=user)
+        post.save()
+    
     context = {
         'user': user,
         #'mode': mode,
@@ -58,12 +74,6 @@ def dashboard(request):
         'olaviatha': olaviatha,
         'show_tasks': show_tasks
     }
-    if request.method == 'POST':
-        title = request.POST['title']
-        olaviat = request.POST['olaviat']
-        description = request.POST['description']
-        post=Tiket(title=title,description=description,olaviat=olaviat,user=user)
-        post.save()
 
     return render(request, 'dashboard.html',context=context)
 
