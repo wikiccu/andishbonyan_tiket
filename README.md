@@ -14,4 +14,4 @@ All packages you need for running is in Requirements.txt Just simply run
 ~~~ 
 pip install -r requirements.txt
 ~~~ 
-For installion.
+For installation.
