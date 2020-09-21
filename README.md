@@ -9,4 +9,9 @@ on the other hand custommers can notice about progress of their projects that th
 Project language is Persian by default 
 
 # Installation 
-All packages you need for running is in Requirements.txt Just run pip install -r requirements.txt for install.
+
+All packages you need for running is in Requirements.txt Just simply run 
+~~~ 
+pip install -r requirements.txt
+~~~ 
+For installion.
