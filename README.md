@@ -5,7 +5,7 @@ on the other hand custommers can notice about progress of their projects that th
 
 
 
-# LANGUAGE
+# Language
 Project language is Persian by default 
 
 # Installation 
