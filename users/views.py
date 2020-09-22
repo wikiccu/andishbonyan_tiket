@@ -8,7 +8,6 @@ from users.models import Tiket,ReplyTask,ReplyTiket,Task
 from .inputs import olaviatha, vaziatha
 from .forms import TasksForm
 
-
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -57,8 +56,6 @@ def dashboard(request):
     #     queries = Tiket.objects.all()
     # elif usergroup == "customer":
     #     mode = 4
-
-    
     if request.method == 'POST':
         title = request.POST['title']
         olaviat = request.POST['olaviat']
@@ -112,20 +109,55 @@ def listing(request, listing_id):
 
 @login_required(login_url='login')
 def tasks(request):
-    user = User.objects.get(pk=request.user.id)
-    usergroup = str(user.groups.first())
-    if usergroup == "customer":
+    if request.method=="POST":
+        form=TasksForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form=TasksForm(initial={'creator': request.user.get_full_name()})
+    if request.user.groups.first().name == "customer":
         return redirect('dashboard')
 
     if Task.objects.exists():
         tasks = Task.objects.all()
     else:
         tasks=None
-
+        
+        pass
     context = {
         'tasks':tasks,
-        'form':TasksForm,
+        'form':form,
         #'vaziatha': vaziatha,
         #'olaviatha': olaviatha,
     }
     return render(request, 'tasks.html', context=context)
+
+@login_required(login_url='login')
+def tasksListing(request, listing_id):
+    this_tiket=Tiket.objects.get(pk=listing_id)
+    user = request.user
+    # Return 404 error if no object found
+    listing = get_object_or_404(Task, pk=listing_id)
+    if ReplyTiket.objects.exists():
+        replys = ReplyTiket.objects.filter(tiket=this_tiket)
+    else:
+        replys=""
+    
+    #get_object_or_404(Reply, pk=listing_id)
+
+    if request.method == 'POST':
+        if request.POST.get('change', False):
+            u = this_tiket
+            u.vaziat = request.POST['vaziat']
+            u.save()
+            return redirect('listing',listing_id)
+        elif request.POST.get('submit', False):
+            rmsg = request.POST['reply']
+            p = ReplyTiket.objects.create(tiket=this_tiket, user=user, reply_message=rmsg)
+    
+    context = {
+        'listing': listing,
+        'replys': replys,
+        'vaziatha': vaziatha
+    }
+    return render(request, 'taskslisting.html',context=context)

@@ -13,8 +13,7 @@
 					<hr>
 					
 					<ul>
-						<li class="active"><a href="{% url 'listing' listing.id  %}">اطلاعات تیکت<span class="pull-right"> </span></a></li>
-						<li><a href="#"> وظایف مربوط به تیکت <span class="pull-right"> </span></a></li>		
+						<li class="active"><a href="#">شرح وظایف<span class="pull-right"> </span></a></li>
 					</ul>
 					<!--<hr>
 					<p><strong> </strong></p>
@@ -37,9 +36,9 @@
 			<div class="grid support-content">
 				 <div class="grid-body">
             <fieldset class="form-group">
-                  <legend class="border-bottom mb-4 pb-2 ">عنوان تیکت : {{ listing.title }}</legend>
+                  <legend class="border-bottom mb-4 pb-2 "> در ارتباط با تیکت : {{ listing.tiket.title }}</legend>
                   
-                  <span class="btn btn-alert">اولویت : {{ listing.olaviat }} </span> <span class="btn btn-success"> وضعیت : {{ listing.vaziat }} </span>
+                  <span class="btn btn-success"> وضعیت : {{ listing.vaziat }} </span>
                   <form class="form-inline" method="POST" action="{% url 'listing' listing.id %}">
                       {% csrf_token %} 
                           <span > <select class="select form-control ml-3" name="vaziat" id="vaziat">
@@ -53,8 +52,8 @@
                           </select> </span>
                      <input  class="btn btn-outline-info " name="change" type="submit" value="تغییر وضعیت">
                   </form>
-                    <p><b> فرستنده : </b> {{ listing.user.first_name }} {{ listing.user.last_name }}</p>
-                    {{ listing.description }} 
+                    <p><b> فرستنده : </b> {{ listing.user.get_full_name }} </p>
+                    {{ listing.description }}  
                   </div>
             </fieldset>
 					<div class="padding"></div>
@@ -86,7 +85,7 @@
               <form method="POST" class="form-account" action="{% url 'listing' listing.id %}">
                 {% csrf_token %}
                   <fieldset class="form-group">
-                      <legend class="border-bottom pb-3 pr-3">پاسخ به تیکت :</legend>
+                      <legend class="border-bottom pb-3 pr-3">ارسال پاسخ :</legend>
                   </fieldset>
                   <div class="form-group">
                     <textarea class="input-field" id="reply" name="reply" rows="4" cols="50"></textarea>
