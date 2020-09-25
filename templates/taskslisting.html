@@ -4,35 +4,8 @@
 <div class="container">
 <section class="content">
 	<div class="row">
-		<!-- BEGIN NAV TICKET -->
-		<div class="col-md-3">
-			<div class="grid support">
-				<div class="grid-body">
-					<h2>جستجو</h2>
-					
-					<hr>
-					
-					<ul>
-						<li class="active"><a href="#">شرح وظایف<span class="pull-right"> </span></a></li>
-					</ul>
-					<!--<hr>
-					<p><strong> </strong></p>
-					<ul class="support-label">
-						<li><a href="#"><span class="bg-blue">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-red">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-yellow">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-black">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-light-blue">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-green">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-purple">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-teal">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li> 
-					</ul> -->
-				</div>
-			</div>
-		</div>
-		<!-- END NAV TICKET -->
 		<!-- BEGIN TICKET -->
-		<div class="col-md-9">
+		<div class="col-md-12">
 			<div class="grid support-content">
 				 <div class="grid-body">
             <fieldset class="form-group">
@@ -60,7 +33,7 @@
   					<div class="row">
              <div class="col-sm-12">
 						<!-- BEGIN TICKET CONTENT -->
-            {% if replys %}
+            {% comment %} {% if replys %}
             
               <legend class="border-bottom mb-4 pb-2 pr-2 ">پاسخ های این تیکت :</legend>
               {% for reply in replys %}
@@ -75,7 +48,7 @@
                   </a>
                 </div>
               {% endfor %}
-              {% endif %}
+              {% endif %} {% endcomment %}
             </div>
             
           </div>

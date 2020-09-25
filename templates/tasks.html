@@ -43,6 +43,9 @@
 					 <div class="btn-group">
 						<button type="button" class="btn btn-default active">باز</button>
 						<button type="button" class="btn btn-default">بسته</button>
+						{% if 't_s' in request.GET.keys %}
+						<button class="btn btn-info" onclick="location.href='{% url 'listing' request.GET.t_s %}';"> بازگشت به تیکت </span>
+						{% endif %}
 					</div>
 					 
 					 <div class="btn-group">

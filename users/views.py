@@ -26,18 +26,26 @@ def login(request):
         return render(request, 'login.html')
 
 @login_required(login_url='login')
-def dashboard(request):
+def dashboard(request ):
     user = User.objects.get(pk=request.user.id)
     usergroup = str(user.groups.first())
     show_tasks=True
+    tikets = Tiket.objects.filter(vaziat="باز")
     if usergroup == "admin" or usergroup == "programmers_admin":
         if request.method == 'GET':
-            if "close" in request.GET or "close/" in request.GET:
+            if "close" == request.GET.get("q",False):
                 tikets = Tiket.objects.filter(vaziat="بسته")
-            elif "prog" in request.GET or "prog/" in request.GET:
+            elif "prog" == request.GET.get("q",False):
                 tikets = Tiket.objects.filter(vaziat="در حال بررسی")
             else:
                 tikets = Tiket.objects.filter(vaziat="باز")
+                if 'new' == request.GET.get("q",False):
+                    tikets=Tiket.objects.filter(vaziat="باز").order_by('-datetime')
+                    print("new")
+                elif 'old' == request.GET.get("q",False) :
+                    tikets=Tiket.objects.filter(vaziat="باز").order_by('datetime')
+                    print("old")
+
         show_tasks=True
     elif usergroup == "programmer":
         tikets = Tiket.objects.all()
@@ -69,7 +77,7 @@ def dashboard(request):
         'tikets':tikets,
         'vaziatha': vaziatha,
         'olaviatha': olaviatha,
-        'show_tasks': show_tasks
+        'show_tasks': show_tasks,
     }
 
     return render(request, 'dashboard.html',context=context)
@@ -79,7 +87,7 @@ def dashboard(request):
 
 @login_required(login_url='login')
 def listing(request, listing_id):
-    this_tiket=Tiket.objects.get(pk=listing_id)
+    this_tiket=get_object_or_404(Tiket,pk=listing_id)
     user = request.user
     # Return 404 error if no object found
     listing = get_object_or_404(Tiket, pk=listing_id)
@@ -109,19 +117,28 @@ def listing(request, listing_id):
 
 @login_required(login_url='login')
 def tasks(request):
+    tasks=None
     if request.method=="POST":
         form=TasksForm(request.POST)
         if form.is_valid():
             form.save()
     else:
+        if request.GET.get("t_s",False):
+            t_s=request.GET["t_s"]
+            t=get_object_or_404(Tiket,pk=t_s)
+            tasks=t.task_set.all()
+        else:
+            if Task.objects.exists():
+                tasks = Task.objects.all()
+            else:
+                tasks=None
+
         form=TasksForm(initial={'creator': request.user.get_full_name()})
+    
     if request.user.groups.first().name == "customer":
         return redirect('dashboard')
 
-    if Task.objects.exists():
-        tasks = Task.objects.all()
-    else:
-        tasks=None
+    
         
         pass
     context = {
@@ -134,10 +151,37 @@ def tasks(request):
 
 @login_required(login_url='login')
 def tasksListing(request, listing_id):
-    this_tiket=Tiket.objects.get(pk=listing_id)
-    user = request.user
     # Return 404 error if no object found
     listing = get_object_or_404(Task, pk=listing_id)
+    # if ReplyTask.objects.exists():
+    #     replys = ReplyTask.objects.filter(tiket=this_tiket)
+    # else:
+    #     replys=""
+    
+    #get_object_or_404(Reply, pk=listing_id)
+
+    # if request.method == 'POST':
+    #     if request.POST.get('change', False):
+    #         u = this_tiket
+    #         u.vaziat = request.POST['vaziat']
+    #         u.save()
+    #         return redirect('listing',listing_id)
+    #     elif request.POST.get('submit', False):
+    #         rmsg = request.POST['reply']
+    #         p = ReplyTiket.objects.create(tiket=this_tiket, user=user, reply_message=rmsg)
+    
+    context = {
+        'listing': listing,
+        # 'replys': replys,
+        'vaziatha': vaziatha
+    }
+    return render(request, 'taskslisting.html',context=context)
+@login_required(login_url='login')
+def tiketListing(request, tiketid):
+    this_tiket=Tiket.objects.get(pk=tiketid)
+    user = request.user
+    # Return 404 error if no object found
+    listing = get_object_or_404(Task, pk=tiketid)
     if ReplyTiket.objects.exists():
         replys = ReplyTiket.objects.filter(tiket=this_tiket)
     else:

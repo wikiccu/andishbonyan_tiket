@@ -1,36 +1,10 @@
 {% extends "base.html" %}
+{% load jformat %}
 {% block content %}
 <div class="container">
 <section class="content">
 	<div class="row">
-		<!-- BEGIN NAV TICKET -->
-		<div class="col-md-3">
-			<div class="grid support">
-				<div class="grid-body">
-					<h2>جستجو</h2>
-					
-					<hr>
-					
-					<ul>
-						<li class="active"><a href="{% url 'dashboard' %}">تیکت ها<span class="pull-right"> </span></a></li>
-						{% if show_tasks %}<li><a href="{% url 'tasks' %}">وظایف<span class="pull-right"> </span></a></li>		{% endif %}
-					</ul>
-					<!--<hr>
-					<p><strong> </strong></p>
-					<ul class="support-label">
-						<li><a href="#"><span class="bg-blue">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-red">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-yellow">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-black">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-light-blue">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-green">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-purple">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li>
-						<li><a href="#"><span class="bg-teal">&nbsp;</span>&nbsp;&nbsp;&nbsp; <span class="pull-right"> </span></a></li> 
-					</ul> -->
-				</div>
-			</div>
-		</div>
-		<!-- END NAV TICKET -->
+		{% include 'partials/_menu.html' %}
 		<!-- BEGIN TICKET -->
 		<div class="col-md-9">
 			<div class="grid support-content">
@@ -38,26 +12,26 @@
 					 <h2>تیکت ها</h2>
 					 <hr>
 					 <div class="btn-group">
-						{% if 'close/' in request.GET or 'close' in request.GET %}
+						{% if 'close' in request.GET.values %}
 							<button onclick="location.href='{% url 'dashboard' %}';" type="button" class="btn btn-default">باز</button>
 							<button type="button" class="btn btn-info active">بسته</button>
-							<button onclick="location.href='{% url 'dashboard' %}?prog';" type="button" class="btn btn-default">در حال بررسی</button>
-					 {% elif 'prog/' in request.GET or 'prog' in request.GET %}
+							<button onclick="location.href='{% url 'dashboard'%}?q=prog';" type="button" class="btn btn-default">در حال بررسی</button>
+					 {% elif 'prog' in request.GET.values %}
 							<button onclick="location.href='{% url 'dashboard'%}';" type="button" class="btn btn-default">باز</button>
-							<button onclick="location.href='{% url 'dashboard'%}?close';" type="button" class="btn btn-default ">بسته</button>
+							<button onclick="location.href='{% url 'dashboard'%}?q=close';" type="button" class="btn btn-default ">بسته</button>
 							<button type="button" class="btn btn-info active">در حال بررسی</button>
 					 {% else %}
 					 		<button type="button" class="btn btn-info active">باز</button>
-							<button onclick="location.href='{% url 'dashboard'%}?close';" type="button" class="btn btn-default">بسته</button>
-							<button onclick="location.href='{% url 'dashboard'%}?prog';" type="button" class="btn btn-default">در حال بررسی</button>
+							<button onclick="location.href='{% url 'dashboard'%}?q=close';" type="button" class="btn btn-default">بسته</button>
+							<button onclick="location.href='{% url 'dashboard'%}?q=prog';" type="button" class="btn btn-default">در حال بررسی</button>
 					 {% endif %}
 					</div>
 					 
 					 <div class="btn-group">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">  دست بندی :  </button>
 						<ul class="dropdown-menu fa-padding" role="menu">
-							<li><a href="#"><i class="fa "></i> جدیدترین</a></li>
-							<li><a href="#"><i class="fa"> </i> قدیمی ترین</a></li>
+							<li><a href="{% url 'dashboard'%}?q=new"><i class="fa "></i> جدیدترین</a></li>
+							<li><a href="{% url 'dashboard'%}?q=old"><i class="fa"> </i> قدیمی ترین</a></li>
 						</ul>
 					</div>
 					
@@ -109,11 +83,11 @@
 						<div class="col-md-12">
 							<ul class="list-group fa-padding">
 							{% for tiket in tikets %}
-								<li class="list-group-item"> 
+								<a href="{% url 'listing' tiket.id %}"><li class="list-group-item"> 
 									<div class="media">
 										<i class="fa fa-angle-double-left"></i>
 										<div class="media-body">
-											<strong><a href="{% url 'listing' tiket.id %}"> {{tiket.title}} </a></strong> 
+											<strong> {{tiket.title}} </strong> 
 											{% if tiket.olaviat in "کم" %}
 												<span class="badge badge-default">{{tiket.olaviat}}</span>
 											{% elif tiket.olaviat in "متوسط" %}
@@ -130,11 +104,14 @@
 											{% elif tiket.vaziat in "در حال بررسی" %} 
 												<span class="badge badge-info">{{tiket.vaziat}}</span>
 											{% endif %}
-											
+												<div class="d-flex w-100 justify-content-between">
+													<h5 class="mb-1">  </h5>
+													<small>{{ tiket.datetime |jformat:"%A %d %B %Y %H:%M" }}  </small>
+											</div>
 											<p class="info">ایجاد شده توسط :  {{tiket.user.get_full_name}}</p>
 										</div>
 									</div>
-								</li>
+								</li> </a>
 								{% endfor %}
 							</ul>
 							
